@@ -1,6 +1,35 @@
 # Hybrid-Image-Generator
+#### Instructions on progrm use 
+-In order to run the hybrid image genarator you need to set up your files in a specific way bellow are the steps on how to proparly arange your files to run the generator.
+- STEP 1 you need to find the images that you want to use and make sure that they are JPEG becuase the program specifacally processes JPEGS 
+-STEP 2 rename all the images to the correct name for a low pass filter image use the numbering format "Image1- Image2 -Image3 ....."
+and for high pass filter images use the numbering format " Images1- Images2 -Images3 ....." YOU NEED TO HAVE SAME AMOUNT OF LOWPASS IMAGES AS THE HIGHPASS IMAGES.
+- The reason you need to give those names for the images is becuase of this peice of code 
+```
+ Image=[]
+    for i in range(1,num+1):
+        img = cv2.imread(f'image{i}.jpg')
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)/255.0
+        Image.append(img)
+    return Image
+#Reading the high pass images and grayscaling the highpass images
+def imageset2(num):
+    Images=[]
+    for i in range(1,num+1):
+        imgs = cv2.imread(f'images{i}.jpg')
+        imgs = cv2.cvtColor(imgs, cv2.COLOR_BGR2GRAY)/255.0
+        Images.append(imgs)
+    return Images
+```
+This code proccess the images by looking for files with those two names "Image" for low pass and "images" for highpass and then looks for JPEGS becuase of the .JPG at the end which is why the images must be JPEGS
 
- A video of your program running (1min or less, no voiceover)
+-Once you have a file set up open the terminal CD into the path where you have your folder set up and then run the following code.
+```
+python Saeedfinal.py
+```
+-It will ask you how many hybrid images you want to create. Do not answer with more images then you have in your file but you may put less.
+
+A video of your program running (1min or less, no voiceover)
 
 
 #### Project overview
