@@ -1,10 +1,13 @@
 # Hybrid-Image-Generator
 #### Instructions on progrm use 
--In order to run the hybrid image genarator you need to set up your files in a specific way bellow are the steps on how to proparly arange your files to run the generator.
-- STEP 1 you need to find the images that you want to use and make sure that they are JPEG becuase the program specifacally processes JPEGS 
--STEP 2 rename all the images to the correct name for a low pass filter image use the numbering format "Image1- Image2 -Image3 ....."
-and for high pass filter images use the numbering format " Images1- Images2 -Images3 ....." YOU NEED TO HAVE SAME AMOUNT OF LOWPASS IMAGES AS THE HIGHPASS IMAGES.
-- The reason you need to give those names for the images is becuase of this peice of code 
+-Specific file setup is required in order to use the hybrid picture generator. The methods to properly arrange your files so that the generator may run are listed below.
+
+-STEP 1: Locate the photographs you want to use and confirm that they are JPEGs because the application only processes JPEGs.
+Use the numbering pattern "Image1- Image2 -Image3....." in Step 2 to rename all the photos to the proper names for low pass filter images.
+
+Use the numbering format "Images1- Images2- Images3....." for high pass filter images. THE NUMBER OF LOWPASS IMAGES MUST BE EQUAL TO THE NUMBER OF HIGHPASS IMAGES.
+
+-Because of this piece of code, you must provide such names for the photographs.
 ```
  Image=[]
     for i in range(1,num+1):
@@ -21,9 +24,10 @@ def imageset2(num):
         Images.append(imgs)
     return Images
 ```
-This code proccess the images by looking for files with those two names "Image" for low pass and "images" for highpass and then looks for JPEGS becuase of the .JPG at the end which is why the images must be JPEGS
+This code processes the images by searching for files with the names "Image" for low pass and "images" for high pass, and it then searches for JPEGS because of the.JPG at the end, therefore the images must be JPEGS.
 
--Once you have a file set up open the terminal CD into the path where you have your folder set up and then run the following code.
+-Once a file is configured, open the terminal, CD into the path where your folder is configured, and then run the following code.
+
 ```
 python Saeedfinal.py
 ```
@@ -33,30 +37,27 @@ A video of your program running (1min or less, no voiceover)
 
 
 #### Project overview
-My program, which is a photo manipulator, creates hybrid images by editing photos with a filter. I created this software to demostrate the impact of high - and low - pass filtering on photos and how a persons point of veiw affects how they see the image.
+My program, a photo manipulator, alters photos using a filter to produce hybrid images. This software was developed by me to demonstrate the effects of high- and low-pass filtering on photos and how one's view point impacts how one perceives a picture.
 
 #### Breakthrough moment 
-I had to divide the grayscale image by 255 in order to change the range of pixel intensities from 0-255 to 0-1 in to properly implement all the filters.
+In order to change the range of pixel intensities from 0-255 to 0-1 and effectively apply all the filters, I had to divide the grayscale image by 255.
+
 ```
 imgs = cv2.cvtColor(imgs, cv2.COLOR_BGR2GRAY)/255.0
 
 ```
-After completing this, I used imwrite to produce the final hybrid image, but all of them turned out to be black. I wasn't sure why this happened because using imshow in the Jupytar notebook made the image look normal. However, after looking up what happened, I found that someone else had experienced a similar issue.
+I used imwrite to create the final hybrid image after finishing this, but they all came out black. The image appeared normal while using imshow in the Jupytar notebook, so I wasn't sure why this was happening. However, after researching what occurred, I learned that a different person had encountered a related problem.
 
-Here is the source ![https://stackoverflow.com/questions/54165365/opencv2-imwrite-is-writing-a-black-image] Here is the source I used to find out what my problem was the problem was that imwrite canot handle the 0-1 range for pixel intensity so I had to convert iit back to the 0-255 range and I did that by multiplying imwrite function by 255.
+Here is the source ![https://stackoverflow.com/questions/54165365/opencv2-imwrite-is-writing-a-black-image] This is the source I used to figure out what the cause of my issue was. The issue was that the imwrite function couldn't handle the 0-1 range for pixel intensity, so I had to convert it back to the 0-255 range by multiplying it by 255.
 
 ```
   cv2.imwrite(f'hybrid{i}.jpg' ,hybrid[i]*255)
 
 ```
 
-
-
-
-
-
 #### Data Abstraction 
-First we stored images in a list using this function
+First, we used this function to save photos in a list.
+
 ```
 def imageset1(num):
     
@@ -67,19 +68,21 @@ def imageset1(num):
         Image.append(img)
     return Image
 ```
-The reason I did this was so the user  can creat as many hybrid images as they wanted and using the list allowed me to loop through the list faster and more effeciently.
+I implemented this so that the user could create as many hybrid images as they like. By utilizing a list, I was able to cycle through the list more quickly and effectively.
 
-The other major data type that I used was a tuple to access the width and the height of the images using pythons .shape() feature which returns the tupel value which is the dimensions of the object that its called on.
+The other main data type I utilized was a tuple to get the picture width and height using Python's.shape() function, which returns a tuple result that represents the object's dimensions.
+
 Bellow is an example code of how i did it.
 ```
   width1,height1=img1[i].shape
   width2,height2=img2[i].shape
 ```
 
-The tupel was used to help me find the width and the height of the image which was usefull later on to resize the image.
+I utilized the tupel to help me determine the image's width and height, which was helpful when I later needed to resize the image.
 
 
 #### Procedural Abstraction 
+
 ```
 def lowpass(num, im):
     for i in range(num):
@@ -87,5 +90,5 @@ def lowpass(num, im):
     return im
         
 ```
-This function is one example of procedual abstraction that I used this function impplemented a low pass filter on all the images and I used itiration by for looping through the lists of images. Using the function that uses itteration  to implement the blur on every image in the list made it simpler to implement instead of going through all the images 1 by 1.
+I used this function to apply a low pass filter to all of the photographs and I used iteration to loop through the lists of images as an example of procedural abstraction. Instead of going through each image one by one, using the method that uses iteration to apply the blur to every image in the list makes it easier to construct.
 
